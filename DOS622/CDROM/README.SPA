@@ -1,0 +1,128 @@
+=======================================================================
+	INFORMACION ACERCA DEL CONTROLADOR DE DISPOSITIVO CD-ROM
+=======================================================================
+
+	Para instalar el controlador CD-ROM escriba el comando:
+
+     DEVICE=VIDE-CDD.SYS /D:MSCD001 [/P:xxx,yy] [/L:xx]
+
+     donde [/P:xxx,yy]
+          especifica el puerto IDE y petici¢n interrupci¢n.
+          
+
+          'xxx' es la direcci¢n base (hexadecimal) del puerto IDE.
+                xxx = 1f0 : Puerto 1
+                      170 : Puerto 2
+                      1e8 : Puerto 3
+                      168 : Puerto 4
+
+          'yy' es el # de interrupci¢n (decimal)
+          del puerto IDE respectivo.
+
+	[/L:xx]
+	  especifica el idioma. Las opciones son:
+
+		xx = US : Ingl‚s (ajuste predeterminado)
+		     GR : Alem n
+		     FR : Franc‚s
+		     SP : Espa¤ol
+		     IT : Italiano
+		     JP : Japon‚s
+
+     Por ejemplo, si hay 8 unidades instaladas, el comando en CONFIG.SYS ser :
+
+     DEVICE=VIDE-CDD.SYS /D:MSCD001 /P:1f0,14 /P:170,15 /P:1e8,12 /P:168,10
+
+     NOTA:
+
+	El controlador buscar  las unidades para 4 y hasta 8 puertos;
+     los puertos son 0x1f0, 0x170, 0x1e8 y 0x168 con el # de interrupci¢n
+     14, 15, 12 y 10 como ajustes predeterminados respectivos. Si sus 
+     puertos IDE y # de interrupci¢n respectivos son los mismos
+     que los mencionados anteriormente, no necesita mencionarlos en detalle.
+
+---------------------------------------------------------------------------
+
+	Para activar la unidad CD-ROM y poder leer los discos compactos usando
+     el formato High Sierra o ISO 9660 no s¢lo se tiene que instalar el
+     controlador de dispositivo, tambi‚n se tiene que escribir el comando
+     siguiente en el archivo AUTOEXEC.BAT:
+
+     MSCDEX /D:MSCD001
+
+	Para mayores detalles acerca de MSCDEX.EXE consulte el manual de
+     usuario MS-DOS.
+
+
+**
+=======================================================================
+Uso de la unidad
+=======================================================================
+
+Cómo iniciar la unidad
+1.	Presione el botón de expulsión.  La bandeja será expulsada de la unidad.
+2.	Coloque el disco dentro de la bandeja con el lado de la etiqueta mirando hacia arriba.
+3.	Presione el botón de expulsión o empuje un poco la bandeja para cerrarla.
+            Ahora la unidad debe estar en su modo de operación normal.
+4.	Presione el botón de control de toque de audio/salto de pista para tocar el disco o saltarse una pista del mismo sin necesitar de ejecutar el software de aplicación.
+NOTAS:
+	1.	No fuerce la apertura de la bandeja.
+	2.	Cuando no use la unidad, cierre la bandeja para evitar que el polvo o suciedad contaminen la unidad.
+	3.	No presione con fuerza la bandeja al cargar el disco ya que puede dañarla o causarle un mal funcionamiento a la unidad.
+	4.	No inserte ningún objeto extraño dentro de la bandeja.
+
+Optimización de la unidad 
+Aunque esta unidad de CD-ROM funciona correctamente con los parámetros por defecto de cualquier sistema BIOS, aprovecha las ventajas de algunos de la configuración especial de los BIOS modernos. Con el fin de aprovechar al máximo la capacidad de esta unidad de CD-ROM, para configurar el sistema BIOS, recomendamos PIO modo 4 o DMA modo 2.  Si su sistema BIOS no le permite modificar el modo PIO, ejecute el programa CHPIO.EXE del disco de instalación, el cual funcionará en la mayoría de los sistemas modernos.
+NOTAS:
+	1.	El cambio realizado por CHPIO.EXE no se guardará en el BIOS, por lo que quizás quiera añadirlo al archivo AUTOEXEC.BAT. O bien, al reiniciar el sistema, el BIOS ajustará automáticamente su modo PIO con la configuración original.
+	2.	Puede ocurrir que algunos sistemas más antiguos no funcionen correctamente con el PIO modo 4.  En ese caso, reinicie el sistema, con lo cual el BIOS ajustará automáticamente el modo PIO con su configuración original.
+
+Cómo examinar la unidad 
+Para examinar el rendimiento de la unidad de CD-ROM, puede utilizar el programa DTR.EXE del disco de instalación.  Para obtener el rendimiento adecuado, deben seguirse los procedimientos siguientes:
+1.	Arranque el sistema desde DOS. Si utiliza Windows 95, presione F8 mientras está arrancando el sistema y luego seleccione "Command prompt only" o "Previous version of MS-DOS" del menú Inicio de Windows 95.
+2.	Inserte un disco de CD-ROM sólo de datos, de sesión única y gran capacidad (preferible >600MB), que no tenga la superficie rayada o con partículas de polvo.
+3.	Ejecute el programa DTR.EXE del disco de instalación.
+Este programa comprueba el índice de transferencia de datos en varias zonas del disco de CD-ROM y traza un curva, que representa este índice de transferencia de datos.
+En los discos que tengan la superficie rayada o con partículas de polvo, la repetición de la comprobación de los datos y las correcciones pueden reducir temporalmente el índice de transferencia de datos.
+
+=======================================================================
+	P r e g u n t a s      u s u a l e s
+=======================================================================
+
+P. Por que no puedo hacer un directorio en un buen formato de disco ISO-9660
+   dentro de mi unidad CD-ROM, la cual est  preparada?
+R. Puede ser que su unidad CD-ROM s¢lo funciona en el modo Cero PIO. Cuando su
+   ordenador est  configurado en un modo de interfaz IDE m s r pido, esta
+   unidad CD-ROM puede encontrar este tipo de problema en la comunicaci¢n.
+   La soluci¢n ser  disminuir la velocidad de interfaz entre la unidad CD-ROM
+   y su ordenador mediante el BIOS o ajustando la tarjeta interfaz. Despu‚s de
+   cambiar la configuraci¢n rearranque el ordenador.
+
+P. Mi unidad CD-ROM lee archivos muy lentamente.  C¢mo puedo acelerar la
+   lectura?
+R. MSCDEX.EXE asigna una memoria Cach‚ para ser usada por las informaciones en
+   la unidad CD-ROM. El par metro /M:<valor> puede ser usado para determinar
+   el # de sectores de b£feres que MSCDEX asignar  al instalarse.
+   Cada unidad debe tener al menos 4 ¢ 5 b£feres y mientras mayor sea la
+   cantidad, mejor ser  el rendimiento de la unidad.
+
+P. Tengo una tarjeta IDE Mejorada con dos puertos pero no puedo instalar la
+   unidad CD-ROM en el puerto secundario.
+R. El puerto secundario en ciertas tarjetas IDE Mejoradas (eg. CMD0640x) no es
+   abierto cuando se arranca el ordenador. En tal circunstancia, el controlador
+   de dispositivo CD-ROM no funcionar  de manera normal con la unidad CD-ROM.
+   Para solucionar este problema se puede instalar el controlador de
+   dispositivo junto con su tarjeta IDE Mejorada para abrir el puerto
+   secundario.
+
+Q. El bot¢n SKIP (Saltar) no funciona cuando un programa como 'CD PLAYER'
+   (disco compacto) est  siendo ejecutado.
+A. Basado en el diseño de esta unidad CD-ROM, el programa de aplicaci¢n tiene
+   una prioridad superior al presionamiento manual de los botones por lo que
+   la interferencia entre el "presionamiento manual del bot¢n" y el
+   "programa de aplicaci¢n" puede ser evitada. Por lo tanto, al tocar (play)
+   bajo un programa de aplicaci¢n, la unidad CD-ROM no responder  al
+   presionamiento del bot¢n "SKIP" (Saltar). Adem s, la bandeja se abrir  al
+   presionar el bot¢n "STOP" (Detener).
+
+

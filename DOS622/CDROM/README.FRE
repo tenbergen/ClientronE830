@@ -1,0 +1,144 @@
+=======================================================================
+	A   P R O P O S   D U   G E S T I O N N A I R E   D E 
+		P E R I P H E R I Q U E   C D - R O M
+=======================================================================
+
+	Pour installer le gestionnaire de p‚riph‚rique CD-ROM, la 
+     syntaxe dans CONFIG.SYS est la suivante :
+
+     DEVICE=VIDE-CDD.SYS /D:MSCD001 [/P:xxx,yy] [/L:xx]
+
+     o— [/P:xxx,yy]
+	sp‚cifie le port IDE qui est connect‚ au lecteur et la
+	demande d'interruption.
+
+	'xxx' est l'adresse de base (hexad‚cimale) du port IDE.
+	      xxx = 1f0 : Port 1
+		    170 : Port 2
+		    1e8 : Port 3
+		    168 : Port 4
+
+	'yy' est le No. d'interruption (d‚cimal) du port IDE
+	     correspondant.
+
+	[/L:xx]
+	  specifie la langue du message,  Les options disponibles
+	  sont indiqu‚es ci-dessous :
+
+		xx = US : Anglais (la langue par d‚faut)
+		     GR : Allemand
+		     FR : Fran‡ais
+		     SP : Espagnol
+		     IT : Italien
+		     JP : Japonais
+
+     Par exemple, lorsque huit lecteurs sont install‚s, la ligne
+     de commande dans CONFIG.SYS devrait ˆtre la suivante :
+
+     DEVICE=VIDE-CDD.SYS /D:MSCD001 /P:1f0,14 /P:170,15 /P:1e8,12 /P:168,10
+
+     NOTE :
+
+	Notre gestionnaire de p‚riph‚rique cherchera automatiquement les 
+     lecteurs dans les 4 ports jusqu'… 8 lecteurs.  Les ports sont 0x1f0,
+     0x170, 0x1e8 et 0x168 avec les num‚ros d'interruption 14, 15, 12 et
+     10 par d‚faut, respectivement.  Si vos ports IDE et leurs num‚ros
+     d'interruption respectifs sont les mˆme que ceux mentionn‚s, il
+     n'est pas n‚cessaire de les mentionner verbeusement.
+
+---------------------------------------------------------------------------
+
+	Pour activer le lecteur de CD-ROM pour la lecture des disques au
+     format High Sierra ou ISO 9600, il est non seulement n‚cessaire 
+     d'installer le gestionnaire de p‚riph‚rique, mais il faut aussi
+     ins‚rer la ligne suivante dans votre fichier AUTOEXEC.BAT :
+
+     MSCDEX /D:MSCD001
+
+	Pour des informations d‚taill‚es sur le programme MSCDEX,
+     consultez le guide de l'utilisateur de MS-DOS.
+
+
+
+
+=======================================================================
+	      Utilisation     du      Lecteur
+=======================================================================
+
+Mise en route du lecteur
+1.	Appuyez sur le bouton d'éjection.  Le plateau s'ouvre.
+2.	Placez le disque dans le plateau côté marqué vers le haut.
+3.	Appuyez sur le bouton d'éjection ou sur le paneau du plateau doucement pour fermer le plateau.
+            Le lecteur doit être alors en position normal de fonctionnement.
+4.	Appuyez sur le bouton d'écoute/saut audio pour écouter ou sauter un morceau d'un disque compact audio sans passer par l'intermédiaire d'un logiciel.
+
+NOTES:
+	1.	Ne forcez pas l'ouverture manuelle du plateau.
+	2.	Lors de l'utilisation du lecteur, laissez le plateau fermé pour éviter la contamination par de la poussière ou des saletés.
+	3.	N'appuyez pas trop énergiquement sur le plateau lors du chargement d'un disque, parce que cela peut endommager le plateau et provoquer un mauvais fonctionnement du lecteur.
+N'insérez aucun objet étranger dans le plateau du disque.
+
+
+Optimisation du lecteur
+Bien que ce lecteur de CD-ROM fonctionne correctement avec le paramétrage par défaut de tout système BIOS, il tire profit de certains paramètres particuliers existant dans le BIOS moderne. Pour utiliser ce lecteur de CD-ROM de manière optimale, il est recommandé d'utiliser, pour le paramétrage du système BIOS, PIO mode 4 ou DMA mode 2. Si votre système ne vous permet pas de modifier le PIO mode, lancez l'exécutable CHPIO.EXE qui figure sur la disquette d'installation. Ce dernier fonctionne dans la plupart des systèmes modernes.
+REMARQUES :
+	1.	La modification apportée par CHPIO.EXE ne sera pas enregistrée dans le BIOS, il est donc préférable que vous l'ajoutiez dans le fichier AUTOEXEC.BAT. Sinon, réinitialisez le système pour que le BIOS restaure automatiquement les paramètres originaux du mode PIO.
+	2.	Il se peut que certains systèmes plus anciens ne fonctionnent pas correctement sous le mode 4 de PIO. Si cela devait se produire, réinitialisez votre système pour que le BIOS rétablisse automatiquement le paramétrage original du mode PIO.
+
+
+Examen du lecteur
+EMARQUES :
+	1.	La modification apportée par CHPIO.EXE ne sera pas enregistrée dans le BIOS, il est donc préférable que vous l'ajoutiez dans le fichier AUTOEXEC.BAT. Sinon, réinitialisez le système pour que le BIOS restaure automatiquement les paramètres originaux du mode PIO.
+	2.	Il se peut que certains systèmes plus anciens ne fonctionnent pas correctement sous le mode 4 de PIO. Si cela devait se produire, réinitialisez votre système pour que le BIOS rétablisse automatiquement le paramétrage original du mode PIO.
+Examen du lecteur
+Sur la disquette d'installation, il existe un programme nommé DTR.EXE que vous pouvez utiliser pour tester les performances du lecteur de CD-ROM. Pour obtenir un résultat satisfaisant, suivez la procédure suivante :
+1.	Redémarrez votre système en mode MS-DOS. Si vous utilisez Windows 95, appuyez sur F8 tout en réinitialisant, puis sélectionnez «Ligne de commande uniquement» ou «Version précédente de MS-DOS» dans le menu de démarrage de Microsoft Windows 95.
+2.	Insérez un CD-ROM de données pures
+
+
+
+=======================================================================
+	      F o i r e    A u x    Q u e s t i o n s
+=======================================================================
+
+Q. Pourquoi ne puis-je pas utiliser la commande <dir> sur un bon disque
+   au format ISO-9600 dans lecteur de CD-ROM, bien qu'il soit prˆt ?
+R. Votre lecteur de CD-ROM peut ne fonctionner uniquement qu'en mode
+   PIO z‚ro. Lorsque votre systŠme est configur‚ pour un mode 
+   d'interface IDE plus rapide, ce lecteur de CD-ROM peut avoir ce 
+   genre de problŠme de communication. La solution est de r‚duire la 
+   vitesse de l'interface entre le lecteur de CD-ROM et le systŠme par
+   l'interm‚diaire du BIOS ou du r‚glage de la carte d'interface.  
+   AprŠs la modification de la configuration, il est n‚cessaire de 
+   r‚initialiser le systŠme.
+
+Q. Pourquoi la lecture de fichiers est-elle lente pour mon CD-ROM.  
+   Comment puis-je l'acc‚l‚rer ?
+R. MSCDEC.EXE alloue de la m‚moire pour la mise en ant‚m‚moire des
+   informations du CD-ROM. Vous pouvez r‚gler /M:<valeur> pour
+   d‚terminer combien de secteurs tampons MSCDEX alloue lorsqu'il 
+   s'installe. En g‚n‚ral chaque lecteur doit avoir un minimum de 4
+   ou 5 tampons par lecteur.  La performance est d'autant meilleure
+   que la valeur est grande.
+
+Q. J'ai une carte IDE am‚lior‚e avec deux ports, mais je ne peux pas
+   installer le lecteur de CD-ROM sur le port secondaire de maniŠre
+   correcte.
+R. Le port secondaire de certaines cartes IDE am‚lior‚e (par exemple
+   CMD0640x) n'est pas ouvert … la mise sous tension du systŠme.  Dans
+   ce cas, le gestionnaire de p‚riph‚rique ne fonctionnera pas de
+   maniŠre stable lorsque ce lecteur de CD-ROM est install‚. Pour
+   r‚soudre ce problŠme, vous pouvez installer le gestionnaire de
+   p‚riph‚rique fourni avec votre carte IDE am‚lior‚e pour ouvrir le
+   port secondaire.
+
+Q. Le bouton "PASSE" ne permet pas de passer au morceau suivant lorsqu'un 
+   programme du type "Platine laser" est utilis‚.
+A. Selon l'approche de conception de lecteur de CD-ROM, les programmes 
+   applicatifs ont une priorit‚ plus grande que l'appui sur les boutons 
+   pour des interf‚rences puissent ˆtre ‚vit‚es. Ainsi, lors de la 
+   lecture par l'interm‚diaire d'un programme applicatif, le lecteur
+   de CD-ROM ne r‚pondra pas lors de l'appui sur le bouton "PASSE". De 
+   plus, le plateau s'ouvrira lors de l'appui sur le bouton "Arrˆt".
+
+

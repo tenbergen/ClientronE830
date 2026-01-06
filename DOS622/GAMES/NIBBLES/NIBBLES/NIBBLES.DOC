@@ -1,0 +1,349 @@
+                                
+
+
+
+
+
+
+                                           
+                                       
+                                     
+                              
+   
+
+
+
+
+
+                        
+
+
+
+
+******************************************************************************
+                                                     
+                           MANUALE DI NIBBLES 1.0    
+                                                     
+******************************************************************************
+   
+Scritto da Francesco E. Carucci        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
+
+
+------------------------------------------------------------------------- P. 1
+                                
+INDICE
+
+MANUALE UTENTE ............................................................. 3
+  Introduzione ............................................................. 3
+  Terminologia ............................................................. 3
+  Installazione ............................................................ 3
+  Requisiti di sistema ..................................................... 3
+  Come si gioca ............................................................ 3
+  I Livelli ................................................................ 4
+  Scopo del gioco .......................................................... 4
+
+MANUALE TECNICO ............................................................ 5
+  Organizzazione del sorgente .............................................. 5
+  Strutture di dati ........................................................ 5
+  L'Arena .................................................................. 6
+  Il serpente .............................................................. 6
+
+Bibliografia ............................................................... 7
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+
+------------------------------------------------------------------------- P. 2
+
+                                MANUALE  UTENTE
+
+INTRODUZIONE.
+
+  Nibbles Š un tentativo di riscrivere  in PASCAL  un gioco fornito con 
+l'MS-DOS.  Questa versione non Š perfettamente identica all'originale, in 
+quanto abbiamo preferito apportare alcune piccole modifiche che rendessero pi— 
+divertente e flessibile una partita a Nibbles: un esempio potrebbe essere 
+l'aggiunta di alcuni nuovi livelli oltre il decimo. 
+
+
+TERMINOLOGIA.
+
+  ARENA - Il campo di gioco.
+  
+  BLOCCHETTO - Il pi— piccolo elemento presente nell'Arena.
+  
+  SERPENTE - Un insieme di blocchetti contigui in grado di muoversi.
+  
+  CIBO - I numeri, da 1 a 9, che compaiono progressivamente sullo schermo 
+         e che, se "mangiati" da un serpente ne aumentano la lunghezza e
+         il punteggio.
+  
+  LIVELLO - Una configurazione differente dell'arena.
+
+
+INSTALLAZIONE.
+  Per installare NIBBLES basta copiare il file NIBBLES.EXE nella directory
+desiderata ed eseguirlo.
+
+
+REQUISITI DI SISTEMA.
+ 
+  Per essere eseguito NIBBLES.EXE richiede un PC IBM compatibile ed uno 
+schermo a colori. NIBBLES supporta tutte le schede grafiche e i processori
+a partire dall'8088.
+
+
+COME SI GIOCA.
+
+  Appena eseguito NIBBLES.EXE compare una schermata di opzioni in cui vengono
+richiesti il livello di difficolt… iniziale, la possibilit… di aumentare la 
+velocit… alla fine di ogni livello, i nomi dei due giocatori. Premendo ENTER
+alla richiesta di input si accettano le opzioni di default fornite dal 
+programma.
+  A questo punto il programma inizializza l'arena di gioco, i serpenti e 
+attende la pressione della barra spaziatrice per iniziare a giocare. Il 
+
+------------------------------------------------------------------------- P. 3
+
+serpente giallo viene controllato dalle frecce direzionali, il serpente
+magenta viene controllato dai tasti 'a', 'w', 's', 'd'. E' importante
+assicurarsi che il CAPS LOCK sia disattivato, in quanto il programma accetta
+esclusivamente i caratteri minuscoli. Premedo il tasto 'p' durante il gioco,
+il programma entra in pausa; per ricominciare a giocare premere la barra
+spaziatrice.
+
+
+I LIVELLI.
+
+  NIBBLES permette di giocare 10 differenti livelli pi— due segreti. Ogni
+livello Š caratterizzato da una diversa configurazione dell'arena di gioco,
+ovvero da una particolare disposizione dei muri. La difficolt… del gioco 
+cresce con il succedersi dei livelli. Se Š stata scelta l'opzione 'Increase
+Speed during play', alla fine di ogni livello viene aumentata la velocit… dei
+serpenti.
+
+
+SCOPO DEL GIOCO.
+
+  Lo scopo del gioco Š mangiare i numeri che via via appaiono nell'arena.
+All'inizio di ogni livello compare il numero '1'. Quando un numero Š mangiato 
+da un serpente compare il numero successivo fino al '9', dopodichŠ appare la 
+scritta 'LEVEL COMPLETED!' e si accede al livello successivo premendo la 
+barra spaziatrice. Ogni numero mangiato aumenta il punteggio del serpente di 
+100 punti moltiplicati il numero e ne incrementa la lunghezza di
+4 blocchetti per il numero.
+ Il contatto della testa di un serpente con i bordi dell'arena, con il corpo
+dell'altro serpente o con il proprio comporta la sua morte. Se un serpente
+muore il suo punteggio viene decrementato di 1000 punti, viene sottratta una
+vita e vengono ripristinate le condizioni iniziali del livello corrente. Ogni 
+serpente dispone inizialmente di 5 vite e il gioco termina quando uno dei due
+serpenti ha zero vite. Ogni vita superstite viene premiata con l'aggiunta di
+500 punti.
+  Vince il serpente che ha totalizzato pi— punti alla fine della partita.
+  
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------- P. 4
+
+                              MANUALE TECNICO
+
+
+ORGANIZZAZIONE DEL SORGENTE.
+  
+  Il sorgente di NIBBLES Š diviso in quattro files: 1 Main Program e 3 Units.
+Il Main Program si occupa di inizializzare il generatore di numeri casuali e 
+di richiamare la procedura principale (PLAY). Le 3 Units sono UPLAY, USNAKE,
+UARENA. 
+  UPLAY si occupa di gestire tutto ci• che ha a che fare con il gioco, le 
+interazioni dell'utente e la notifica dei messaggi.
+  USNAKE definisce le caratteristiche del serpente e ne gestisce il movimento
+e l'interazione con l'ambiente.
+  UARENA si cura dell'Output, definendo il campo di gioco e fornendo le
+procedure che disegnano i blocchetti sullo schermo.
+
+
+STRUTTURE DI DATI.
+
+  La struttura di dati usata da NIBBLES per gestire lo schermo Š una matrice
+di record. La matrice ha dimensioni 50x80 (Cfr. L'ARENA) e ogni suo elemento 
+Š costituito da due bytes: il primo memorizza la riga reale in cui Š situato 
+il blocchetto preso in considerazione, il secondo memorizza il colore del 
+blocchetto.
+ES: TArenaPos = RECORD
+      RealRow: byte;        <------- La riga reale del blocchetto                          
+      Color: byte;          <------- Il colore del blocchetto
+     END;
+
+  Il serpente Š descritto come un record nel quale ne vengono memorizzate le 
+caratteristiche.
+ES: TSnake = RECORD
+      CurrLen, Length: byte;      <----- Lunghezza corrente e massima
+      Direction: byte;            <----- Direzione di marcia
+      Lives: byte;                <----- Vite rimanenti
+      Score: integer;             <----- Punteggio corrente
+      Color: byte;                <----- Colore del serpente
+      BodyRows: array... of byte; <----- Elenco delle righe del corpo
+      BodyCols: array... of byte; <----- Elenco delle colonne del corpo
+    END;
+  La distinzione fra lunghezza corrente e lunghezza massima Š usata per 
+gestire l'allungamento del serpente. (Cfr. IL SERPENTE). Negli array
+BodyRows e BodyCols sono memorizzate le coordinate del corpo del serpente
+usate per gestirne il movimento. Avremmo potuto memorizzare le coordinate
+in una matrice 2xMAXSNAKELENGTH, ma la soluzione adottata si Š dimostrata
+pi— flessibile.
+
+------------------------------------------------------------------------- P. 5
+
+L'ARENA.
+
+  L'Arena di gioco misura 80x50 e viene mappata su uno schermo 80x25. Usando
+uno schermo virtuale di grandezza 80x50 Š possibile, tuttavia, disegnare solo
+blocchetti pieni: questo Š, per•, pi— che sufficiente per i nostri scopi.
+La scrittura dei blocchetti Š delegata alla procedura Put che accetta in
+ingresso le coordinate e il colore del blocchetto da stampare. Il procedimento
+usato consiste nel dividere un carattere in due e usare i caratteri speciali
+'Ü' e 'ß' per scrivere. L'algoritmo con il quale Š stata implementata la 
+procedura Put pu• essere schematizzato come segue:
+
+  - Leggi il valore della riga reale memorizzato nella matrice alla posizione
+     fornita in ingresso.
+  - Sposta il cursore alla posizione data dalla colonna e dalla riga reale
+  - Se il blocchetto da scrivere Š quello superiore, allora
+        - Se il colore del blocchetto inferiore e di quello superiore sono
+          uguali, allora
+               - Stampa con il colore fornito il carattere Û
+               - Altrimenti stampa con il colore fornito e con lo sfondo dato 
+                 dal colore del blocchetto inferiore il carattere ß
+        - Altrimenti procedi come sopra considerando il blocchetto inferiore
+
+ES. Stampare sullo schermo un blocchetto di colore rosso alle coordinate 
+    virtuali RIGA 32 COL  44
+     
+  La riga reale Š memorizzata nel campo Arena[32, 44].RealRow e si calcola
+mediante l'espressione REALROW:=(ROW + 1) DIV 2. Nel carattere alla posizione
+reale RIGA 16 COL 44, il blocchetto da stampare Š quello inferiore. Poniamo
+che il blocchetto superiore abbia colore giallo, i colori da impostare saranno
+rosso per il testo, giallo per lo sfondo. Il carattere da stampare sar… ß.
+
+
+IL SERPENTE.
+
+  Il movimento del serpente Š gestito dalla procedure Move che schematicamente
+opera cos:
+
+  - Fai scorrere a destra di una posizione gli elementi dei due array che
+    contengono le coordinate del corpo.
+  - In base alla direzione di marcia aggiorna la posizione della nuova testa
+  - Se la lunghezza corrente Š uguale a quella massima allora 
+       - cancella la coda
+       - altrimenti aumenta la lunghezza corrente di un blocchetto
+  - Disegna la nuova testa
+
+  La procedura Grow si occupa di allungare il serpente aggiornando la lunghezza
+massima. Fino a quando la lunghezza corrente non raggiunge la lunghezza massima
+
+------------------------------------------------------------------------- P. 6 
+  
+la coda non viene cancellata simulando l'allungarsi del serpente.
+  
+  La funzione CanMove ritorna TRUE se il serpente pu• muoversi di un blocchetto
+nella direzione corrente FALSE altrimenti. Il controllo sulla possibilit… di
+muoversi viene eseguito verificando che nella posizione della futura nuova
+testa vi sia un blocchetto blu.
+
+
+BIBLIOGRAFIA
+
+  Libreria di procedure e funzioni in PASCAL - McGraw Hill
+                                                              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------- P. 7

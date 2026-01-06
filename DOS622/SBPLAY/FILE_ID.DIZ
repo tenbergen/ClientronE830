@@ -1,0 +1,9 @@
+SBPlay version 2.59 March 21, 2000.
+DOS Sound File player/convertor utility.
+Will play .VOC, .WAV, .SND, .IFF, .AIF, .AU,
+ .RAW & .MOD, and unknown type sound
+files on Sound Blaster cards or PC speaker.
+Will work with any sound card that has a
+DIGpak driver. Includes drivers. Will also
+convert files to WAV, VOC, and SAM format.
+Also works in Windows, DESQview, and OS/2.

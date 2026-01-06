@@ -1,0 +1,134 @@
+=========================================================================
+C I R C A   I L   D R I V E R   D I   D I S P O S I T I V O   C D - R O M
+=========================================================================
+
+	Per installare il driver di dispositivo CD-ROM, la sintassi
+     in CONFIG.SYS è la seguente:
+
+     DEVICE=VIDE-CDD.SYS /D:MSCD001 [/P:xxx,yy] [/L:xx]
+
+     dove [/P:xxx,yy]
+          specifica la porta IDE che è collegata all'unità e la
+          richiesta dell'interrupt.
+
+          'xxx' è l'indirizzo di base (notazione esadecimale) della porta IDE.
+                xxx = 1f0 : Porta 1
+                      170 : Porta 2
+                      1e8 : Porta 3
+                      168 : Porta 4
+
+          'yy' è il numero di interrupt (notazione decimale) della porta IDE
+          corrispondente.
+
+	[/L:xx]
+	  specifica la lingua dei messaggi. Le opzioni disponibili sono
+	  elencate di seguito:
+
+		xx = US : Inglese (la lingua di default)
+		     GR : Tedesco
+		     FR : Francese
+		     SP : Spagnolo
+		     IT : Italiano
+		     JP : Giapponese
+
+     Ad esempio,  quando sono installate otto unità, la linea di comando
+     nel file CONFIG.SYS può essere introdotta come segue:
+
+     DEVICE=VIDE-CDD.SYS /D:MSCD001 /P:1f0,14 /P:170,15 /P:1e8,12 /P:168,10
+
+     NOTA:
+
+	Il nostro driver di dispositivo cercherà automaticamente le
+     unità per 4 porte fino a 8 unità, e le porte sono 0x1f0, 0x170,
+     0x1e8 e 0x168 con numero di interrupt, rispettivamente, 14, 15,
+     12 e 10 come default. Se le vostre porte IDE ed i loro numeri
+     di interrupt rispettivi sono gli stessi di quelli sopra menzionati,
+     non avrete bisogno di specificarli verbosamente.
+
+---------------------------------------------------------------------------
+
+	Per abilitare l'unità CD-ROM a leggere dischi CD-ROM che usano
+     il formato High Sierra o ISO 9660, non solo dovrete installare il
+     driver di dispositivo CD-ROM, ma dovrete anche inserire nel file
+     AUTOEXEC.BAT la seguente linea:
+
+     MSCDEX /D:MSCD001
+
+	Per avere informazioni più dettagliate sul programma MSCDEX.EXE,
+     vi preghiamo di fare riferimento al manuale dell'utente di MS-DOS.
+
+
+
+=======================================================================
+Utilizzo dell'Unità
+=======================================================================
+
+Per Fare Partire l'Unità
+1.	Premete il pulsante di Rimozione (Eject). Il cassetto fuoriuscirà dall'unità.
+2.	Ponete il disco nel cassetto con il lato dell'etichetta verso l'alto.
+3.	Premete il pulsante di Rimozione (Eject) o premete leggermente il pannello del cassetto per richiudere il cassetto.
+            L'unità dovrebbe ora trovarsi nella sua normale posizione operativa.
+4.	Premete il pulsante di controllo della traccia Esegue/Salta (Play/Skip) dell'Audio per eseguire o saltare una traccia del CD Audio senza dovere eseguire il software di applicazione.
+NOTE:	1.	Non forzate il cassetto con un'apertura manuale.
+	2.	Quando non utilizzate l'unità, tenete il cassetto chiuso in modo da evitare che si impolveri o si sporchi.
+	3.	Non premete con forza il cassetto verso il basso quando caricate un disco, dato che potrebbe danneggiare il cassetto stesso e causare il malfunzionamento dell'unità.
+	4.	Non inserite alcun oggetto estraneo all'interno del cassetto del disco.
+
+Ottimizzazione dell'unità
+Con questa unità CD-ROM è possibile ottenere buone prestazioni con le impostazioni predefinite di qualunque BIOS di sistema. È tuttavia possibile ottimizzarne il funzionamento definendo alcune impostazioni specifiche per i BIOS moderni. Per sfruttare al massimo le potenzialità di questa unità CD-ROM, è consigliabile impostare per il BIOS di sistema la modalità 4 per PIO o la modalità 2 per DMA. Se per il BIOS di sistema non è possibile modificare la modalità PIO, si consiglia di eseguire il programma CHPIO.EXE disponibile nel disco di installazione. Questa operazione può essere eseguita per la maggior parte dei sistemi moderni.
+NOTE:	1.	Le modifiche apportate in seguito all'esecuzione di CHPIO.EXE non vengono salvate nel BIOS. È pertanto consigliabile richiamare l'esecuzione di questo programma nel file AUTOEXEC.BAT. In caso contrario, quando il sistema viene riavviato la modalità PIO verrà ripristinata in base alle impostazioni originali.
+	2.	Alcuni sistemi meno recenti potrebbero non funzionare correttamente se la modalità PIO viene impostata su 4. In questo caso, è sufficiente riavviare il sistema per ripristinare l'impostazione originale della modalità PIO del BIOS.
+
+Analisi dell'unità
+Nel disco di installazione è disponibile il programma DTR.EXE che può essere utilizzato per analizzare le prestazioni dell'unità CD-ROM. Per ottenere le prestazioni migliori, è consigliabile eseguire le operazioni indicate di seguito:
+1.	Avviare il sistema da DOS. Se si utilizza Windows 95, premere F8 durante la fase di avvio e quindi scegliere "Prompt dei comandi con supporto di rete" o "Versione precedente di MS-DOS" dal menu di avvio di Microsoft Windows 95.
+2.	Inserire nell'unità un CD-ROM integro e pulito, di grande capacità (almeno 600 MB), a sessione singola e contenente solo dati.
+3.	Eseguire il programma DTR.EXE disponibile nel disco di installazione.
+
+Questo programma verifica la velocità di trasmissione dei dati nelle diverse aree di un disco CD-ROM e disegna il tracciato della velocità di trasmissione.
+Se per l'analisi si utilizzano dischi con graffiature o polvere, il programma dovrà ricontrollare i dati e correggerne la lettura. Il valore della velocità di trasferimento dei dati potrebbe pertanto diminuire temporaneamente.
+
+=======================================================================
+D o m a n d e    C h i e s t e    P i ù    F r e q u e n t e m e n t e
+=======================================================================
+
+D. Perchè non posso effettuare un direttorio (dir) su un buon disco di
+   formato ISO-9660 nella mia unità CD-ROM nonostante sia pronta?
+R. La vostra unità CD-ROM potrebbe funzionare solo in modo PIO zero.
+   Quando il vostro sistema PC è configurato in un modo di interfaccia
+   più veloce, questa unità CD-ROM potrebbe incontrare questo genere
+   di problemi di comunicazione. La soluzione verrà trovata diminuendo
+   la velocità di interfaccia tra l'unità CD-ROM ed il vostro sistema
+   PC tramite il BIOS o l'impostazione della scheda di interfaccia.
+   Dopo che viene modificata la configurazione, dovrete riavviare il
+   sistema.
+
+D. Perchè il mio CD-ROM è lento nel leggere file? Come velocizzarlo?
+R. MSCDEX.EXE alloca la memoria per portare in cache le informazioni
+   sul CD-ROM. Potete impostare /M:<valore> per determinare quanti
+   buffer di settore MSCDEX alloca quando si installa. Di solito, ogni
+   unità dovrebbe avere un minimo di 4-5 buffer per unità e maggiore è
+   questo valore, migliore sarà la prestazione dell'unità.
+
+D. Possiedo una scheda IDE avanzata a due porte, ma non riesco ad
+   installare correttamente l'unità CD-ROM sulla porta secondaria.
+R. Su alcune schede IDE avanzate (ad es. CMD0640x) la porta secondaria
+   viene lasciata non-aperta quando il sistema PC viene inizialmente
+   acceso. Sotto tale condizione, il dispositivo dell'unità CD-ROM
+   non si comporterà in modo stabile quando è installato questo drive
+   CD-ROM. Per risolvere questo problema, potete installare il driver
+   di dispositivo fornito con la vostra scheda IDE avanzata per aprire
+   la porta secondaria.
+
+D. Il pulsante SKIP (SALTA) non salta quando un programma di tipo
+   'CD PLAYER' viene eseguito.
+R. Basato sulla filosofia di progettazione di questa unità CD-ROM,
+   il programma applicativo ha una priorità maggiore della pressione
+   manuale dei pulsanti cosicchè può essere evitata l'interferenza tra
+   la "pressione manuale dei pulsanti" ed il "programma applicativo".
+   Per tale motivo, durante l'esecuzione del programma applicativo,
+   l'unità CD-ROM non risponderà quando viene premuto il bottone
+   "SKIP". Comunque, il vano disco si aprirà quando verrà premuto il
+   pulsante "STOP".
+
+

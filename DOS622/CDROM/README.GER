@@ -1,0 +1,123 @@
+=======================================================================
+             	    Z u s a t z  z u m  H a n d b u c h
+=======================================================================
+
+       Um den Treiber fr das CD-ROM Laufwerk erfolgreich zu laden,
+       muá die Befehlszeile in der CONFIG.SYS Datei wie folgt aussehen:
+
+         DEVICE=VIDE-CDD.SYS /D:MSCD001 [/P:xxx,yy] [/L:xx]
+
+       wobei [/P:xxx,yy]
+         den IDE Anschluss wie mit den folgenden Parametern beschreibt:
+
+         'xxx' ist die Basis Adresse (hexadezimale Schreibweise) des
+	    IDE-Anschlusses
+
+               xxx =	1F0 : Anschluss 1
+			170 : Anschluss 2
+			1E8 : Anschluss 3
+			168 : Anschluss 4
+
+         'yy'  ist die Interrupt Nummer (dezimale Schreibweise) des
+                IDE-Anschlusses.
+
+       und [/L:xx]
+         die Dialogsprache bestimmt. Folgende Sprachen sind w„hlbar:
+
+               xx =	US : Englisch (Standard Einstellung)
+			GR : Deutsch
+			FR : Franz”sisch
+			SP : Spanisch
+			IT : Italienisch
+			JP : Japanisch
+
+     So zum Beispiel lautet bei Installation von 8 Laufwerken die Befehlszeile:
+     in der CONFIG.SYS:
+
+     DEVICE=VIDE-CDD.SYS /D:MSCD001 /P:1F0,14 /P:170,15 /P:1E8,12 /P:168,10
+
+     Achtung:
+
+     Der Ger„tetreiber sucht automatisch Laufwerke an 4 Anschlssen mit
+     bis zu 8 Laufwerken. Die Anschlsse mit den Adressen 0x1F0, 0x170, 0x1E8
+     und 0x168 mit den Interrupt Nummern 14, 15, 12 und 10 sind hierbei
+     Standardwerte. Sollten Adresslage und Interruptnummern Ihrem System
+     entsprechen, brauchen Sie keine Zusatzparameter in der Befehlszeile
+     hinzufgen.
+
+---------------------------------------------------------------------------
+
+     Um das CD-ROM Laufwerk in die Lage zu versetzen, das High-Sierra oder
+     ISO 9660 Format zu lesen, ist es nur n”tig, die Microsoft CD-Extention
+     MSCDEX.EXE in der Datei AUTOEXEC.BAT in folgendem Format zu laden:
+
+     MSCDEX /D:MSCD001
+
+     Genaue Parameter zu dieser Erweiterung entnehmen Sie bitte Ihrem
+     DOS-Handbuch.
+
+
+==========================================================================
+               Das Laufwerk bedienen
+==========================================================================
+Das Laufwerk starten
+1.	Drücken Sie die Entnahmetaste.  Die CD-Schublade fährt aus dem Laufwerk aus.
+2.	Legen Sie die CD so in die Schublade, daß das CD-Etikett nach oben weist.
+3.	Drücken Sie die Entnahmetaste oder drücken Sie die Schublade vorne leicht an, um diese zu schließen.
+            Das Laufwerk sollte sich jetzt in seiner normalen Betriebsposition befinden.
+4.	Drücken Sie die Abspiel-/Übersprungkontrolltaste von Audio-CD-Spuren, um die Spur auf einer Audio-CD abzuspielen oder zu überspringen, ohne Anwendungssoftware auszuführen.
+HINWEISE:
+	1.	Öffnen Sie die Schublade nicht gewaltsam.
+	2.	Ist das Laufwerk nicht in Betrieb, halten Sie die Schublade geschlossen, um Staub und Schmutz fernzuhalten.
+	3.	Drücken Sie beim Einlegen einer CD die Schublade nicht nach unten, da dies die Schublade beschädigen und zu Betriebsstörungen des Laufwerks führen könnte.
+	4.	Legen Sie keine Fremdgegenstände in die CD-Schublade.
+
+Optimierung des Laufwerks
+Obwohl dieses CD-ROM-Laufwerk mit den Standardeinstellungen jedes System-BIOS arbeiten kann, nutzt es die Vorteile bestimmter Einstellungen in modernen BIOS-Versionen. Damit die Vorteile dieses CD-ROM-Laufwerks voll ausgeschöpft werden können, wird der PIO-Modus 4 oder der DMA-Modus 2 als Einstellung für das System-BIOS empfohlen. Wenn der PIO-Modus in Ihrem System-BIOS nicht geändert werden kann, führen Sie das Programm CHPIO.EXE auf der Installationsdiskette aus. Dies funktioniert bei den meisten modernen Systemen.
+s 4 oder der DMA-Modus 2 als Einstellung für das System-BIOS empfohlen. Wenn der PIO-Modus in Ihrem System-BIOS nicht geändert werden kann, führen Sie das Programm CHPIO.EXE auf der Installationsdiskette aus. Dies funktioniert bei den meisten modernen Systemen.
+HINWEISE:
+	1.	Die durch das Programm CHPIO.EXE vorgenommene Änderung wird nicht im BIOS gespeichert, daher ist es sinnvoll, dieses Programm in der Datei AUTOEXEC.BAT aufzurufen, da ansonsten das BIOS beim nächsten Systemstart den PIO-Modus automatisch auf die ursprünglichen Einstellunge	Die durch das Programm CHPIO.EXE vorgenommene Änderung wird nicht im BIOS gespeichert, daher ist es sinnvoll, dieses Programm in der Datei AUTOEXEC.BAT aufzurufen, da ansonsten das BIOS beim nächsten Systemstart den PIO-Modus automatisch auf die ursprünglichen Einstellungen zurücksetzt.
+	2.	Einige ältere Systeme arbeiten möglicherweise unter PIO-Modus 4 nicht ordnungsgemäß. Starten Sie in einem solchen Fall Ihr System neu. Bei diesem Vorgang setzt das BIOS den PIO-Modus automatisch wieder auf die ursprüngliche Einstellung zurück.
+
+Überprüfen des Laufwerks
+Mit dem Programm DTR.EXE auf der Installationsdiskette kann der Durchsatz des CD-ROM-Laufwerks überprüft werden. Gehen Sie hierfür folgendermaßen vor:
+1.	Starten Sie Ihr System unter MS-DOS. Wenn Sie unter Windows 95 arbeiten, drücken Sie während des Ladevorgangs F8, und wählen Sie im anschließend angezeigten Microsoft Windows 95 Start-Menü „Nur Eingabeaufforderung" oder „Vorherige MS-DOS-Version" aus.
+
+==========================================================================
+               H „ u f i g  g e s t e l l t e  F r a g e n
+==========================================================================
+
+F. Warum kann ich kein Inhaltsverzeichnis (DIR-Befehl) bei einer
+   ISO-9660 Disk auf meinem CD-ROM Laufwerk eingeben, obwohl das
+   Laufwerk bereit ist  ?
+A. Das CD-ROM Laufwerk arbeitet nur im PIO Modus 1. Ist der PC mit
+   schnellerer Busgeschwindigkeit konfiguriert, kommt es zu
+   Kommunikationsproblemen. Abhilfe erreichen Sie durch Heruntertakten
+   der AT-BUS Taktrate, z.B. im BIOS Ihres PCs. Bitte beachten Sie
+   dabei das Manual des PCs.
+
+
+F. Warum ist das Laufwerk so langsam ? Wie bekomme ich es schneller ?
+A. Der MSCDEX.EXE Treiber reserviert Speicherplatz fr den Cache, ein
+   "Pufferspeicher" fr schon gelesene Spuren der CD. Doppeltes Lesen
+   wird hiermit reduziert. Sie k”nnen mit dem Parameter /M:<Wert> die
+   Groesse dieses Speicherbereiches der gepufferten Spuren bei der
+   Installation (Booten) festlegen. Erfahrungsgem„á sollte der Wert
+   nicht kleiner als 6 fr jedes Laufwerk sein. Je h”her der Wert,
+   desto besser die Pufferung und damit die Performance.
+
+
+F. Ich benutze einen E-IDE Controller mit zwei Anschlssen, kann aber am
+   zweiten Anschluá das Laufwerk nicht mit korrekter Funktion betreiben.
+A. Der zweite Anschluá wird bei einigen Controllern in der Initialisierungs-
+   phase nicht korrekt angesprochen. Unter diesen Umst„nden ist eine
+   einwandfreie Funktion nicht gew„hrleistet. Eine L”sung kann nur mit der
+   originalen Treibersoftware des E-IDE Controller erreicht werden.
+
+
+F. Die SKIP-Taste funktioniert scheinbar nicht, wenn eine Applikation
+   wie z.B. "CD-Player" aktiv ist.
+A. Die Applikation kann eine h”here Prioritaet als das manuelle Drcken
+   der SKIP-Taste haben. Die STOP-Taste bleibt jedoch immer in Funktion.
+
+

@@ -1,0 +1,9 @@
+SpinRite II v2.0
+Released in 1991 by Gibson Research
+For DOS
+
+Spinrite, by Gibson Research, is a tool that can diagnose, repair, 
+and rejuvenate the low-level formatting and optimize the interleave 
+of MFM and RLL (ST412/506 interface) hard disk drives. Its pattern 
+testing ability is also useful for verifying the operation of SCSI 
+and IDE hard drives.

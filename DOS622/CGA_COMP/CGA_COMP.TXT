@@ -1,0 +1,230 @@
+The CGA Compatibility Tester
+by trixter@oldskool.org
+background: http://www.oldskool.org/pc/cgacomp
+    github: https://github.com/MobyGamer/CGACompatibilityTester
+
+The CGA Compatibility Tester, as its name implies, is a program that
+benchmarks and stresses nearly every capability of the IBM Color Graphics
+Adapter (CGA).  This can be used to:
+
+- Verify that your clone CGA card is 100% compatible with the real IBM CGA
+- Calibrate your CGA RGB or Composite monitor for maximum enjoyment
+- Calibrate your capture solution (or camera) for accurate colors and motion
+- Benchmark adapter RAM speed
+- Satisfy your curiosity about how CGA can be tweaked
+- Display transparent color raster bars through the power of sheer awesomeness
+  (see the horizontal retrace detection test)
+- Display 640x200x16 graphics on a stock CGA card
+  (see the textmode row reprogramming test)
+
+Testing Features:
+
+Adapter memory speed benchmarks:
+  Interleaved opcode/adapter memory read benchmark
+  Interleaved opcode/adapter memory write benchmark
+  Adapter Memory-only read benchmark
+  Adapter Memory-only write benchmark
+
+Color Select and Mode Control Register tests:
+  Border/Overscan color
+  Medium-res graphics background color
+  High-res graphics foreground color
+  Palette display (all six medium-res palettes)
+
+Textmode manipulation:
+  40-column test
+  Textmode highcolor background (ie. disable blink)
+  Textmode cursor manipulation
+  CGA "snow" anomaly
+  Font display (simulated via 40-col mode)
+
+Monitor Calibration:
+  Brightness calibration
+  Contrast calibration
+  Moire pattern (high-res horiz/vert/50%)
+  Display of 16 colors
+
+MC6845 CRTC programming:
+  Horizontal retrace demo
+  Vertical retrace detection
+  Row reprogramming (80x100)
+  Row/Column reprogramming (90x30)
+  Interlaced mode test
+  Horizontal/Vertical sync position test
+  Start Address register test
+
+...and MUCH MUCH MORE(tm)
+
+=============================================================================
+
+Running the Program:
+
+The CGA Compatibility Tester requires a CGA card, 256KB RAM, and DOS 3.1 or
+higher.  Every test is menu-driven, and follows this convention:
+
+- Use arrow keys and ENTER to select a menu entry
+- A description of the test will pop up
+- Choose "continue" to run the test or "abort" to change your mind and go back
+
+=============================================================================
+
+Running in a Batch File (or: Let's Capture Some CGA Footage)
+
+The following command-line arguments are recognized for generating a few
+select test plates without user interaction.  This is intended for anyone
+attempting to capture CGA video footage; they provide a quick way to generate
+various screens and tone to be used as a reference later during editing.
+
+Command-line arguments are:
+
+Argument  | Action
+----------+-------
+/nXX      | Delay XX seconds (default = 5) before exiting a test plate.
+aspect    | Display the monitor aspect ratio calibration test.
+cbars     | Display composite default color bars sorted by luminance.
+rbars     | Display RGBI calibration bars (meant for capture devices).
+motion    | Display 60Hz motion test.  (Runs for 8 seconds; ignores /n values)
+audiosync | Display video+audio sync test
+/?, /h    | Display this help text.
+
+You can mix and match these on a single command-line.  For example, if trying
+to capture composite CGA, this would make a good leader:
+
+        CGA_COMP /n10 audiosync aspect cbars motion audiosync
+
+Each test plate will display for 10 seconds before moving to the second
+test.  Also note that "audiosync" is provided both at the beginning and the
+end so that the resulting capture has "sync and tone" at both ends, allowing
+detection of severe audio drift problems.
+
+Hint: If you are capturing very long sessions, such as over an hour, run the
+audiosync test before stopping your capture.  That way, you'll have
+sync+tone at the beginning and end that you can use to detect subtle drift.
+
+=============================================================================
+
+DISCLAIMER:
+
+Every effort has been made to perform safe testing.  I have a vintage
+collection just like you, and I would never intentionally damage hardware.
+
+!! That said, you run this program at your own risk. !!
+
+I cannot be held liable for any damage that may occur to your hardware by
+running these tests.  By using this program, you agree to these terms.
+
+=============================================================================
+
+Limitations:
+
+- Row/column reprogramming not implemented in graphics mode due to
+  lack of motivation.  It is implemented in text mode, and it uses the
+  same methods, so this is no great loss.
+- Light pen interface not tested because I do not own a light pen.
+  Please send me a light pen.  I may even pay you handsomely for it.
+- 4 colors in 640x200 mode (yes, 640x200x4) not implemented because, while
+  the *mode* works, IBM didn't implement things properly and memory is
+  incompletely decoded (every other byte column is garbage).  No software
+  ever used this half-implemented feature.
+
+Notes and Oddities:
+
+The interlaced support, as implemented by IBM in the CGA and as connected to
+an IBM 5153 color RGB monitor, is broken.  What is *supposed* to happen is
+that the interlaced mode would display one frame of scanlines, then display a
+second frame of scanlines offset by one field.  What ACTUALLY happens on CGA
+is that every set of scanlines, whether odd or even, are displayed in the
+same locations.  This has the effect of mashing both sets of scanlines
+together into 200 lines, instead of an interlacted 400-line mode as you'd
+normally expect.  (This was tested with a composite display as well as RGB
+and the results were no better.)  If you've ever wondered why no program in
+the history of the IBM PC ever used interlaced CGA mode, now you know!
+
+There are ways to use interlaced functionalty in interesting configurations
+that can potentially lead to new CGA video modes.  This is left as an
+exercise for the reader.
+
+=============================================================================
+
+Greets go to:
+  Vile Rancour
+  reenigne
+  Bill Hart
+  Hargle (for suggesting the idea of this program in the first place)
+  Great Hierophant (CGA ROM dump) and John Elliott (explaining ROM layout)
+  Fallo (interlacing confirmation)
+  Erik of the VCF, for the amazing forums
+  The OWB and TDC crews.  You know who you are.
+  Chris Scussel (for always-enlightening conversation)
+  Adrian Black, for suggesting tweaks to some patterns
+
+=============================================================================
+
+Version History:
+
+0.1:    Testing release, has half the functions added
+0.2:    Added rest of testing functions
+0.3:    Added system and graphics detection library
+0.4:    Added 8087 emulator (detection routines require $N+); also created
+        a video of the program in action on real hardware for reference.
+        Visit the website for a link to the video.
+0.5:    Fixed 8088 detection logic (hopefully didn't break NEC logic!)
+        Fixed and removed 8087-specific code; removed 8087 emulator
+0.5a:   Fixed PC detection logic
+        Added Tandy 1000 detection logic
+0.5b:   Fixed an embarrasing calculation bug; all block memory timings and
+        vertical refresh timings are now accurate.  Whoops!
+        Removed detection routines; Use TOPBENCH for all your detection needs.
+1.1:    Composite modes and monitors now officially supported.
+        Vertical refresh test was broken; now fixed.  Sorry for any confusion!
+        Disabled mouse support.  (It affected m6845 tweaks, and wasn`t needed.)
+        Added aspect ratio calibration pattern.
+        Added color uniformity/purity screens.
+        Added monitor linearity grids.
+        Replaced Robert Tyler picture with an amazing original piece from VileR.
+        Added Composite CGA identification screen originally seen in "8088 MPH".
+        Optimized code for size and overlay usage.
+        Now runs on 128KB systems w/ DOS 3.x (I tested 3.1).
+1.11:   Added convergence pattern.
+        Changed Uniformity test to cycle through RGBI pins.
+        Pressing "P" will now pause/unpause any color cycling.
+        Re-tooled aspect ratio pattern for composite monitors only.
+        Clarified descriptions for tests meant for a particular monitor.
+1.2:    Added video capture color and luminance test plates.
+        Added vertical/horizontal motion video capture torture test.
+        Added capture dropped frame and audio/video sync test.
+        Added IRGB pin and color text labels to the uniformity test.
+        Completely rewrote vertical refresh rate detection because I'm an idiot.
+        Added command-line options for batch usage; see documentation above.
+1.21:   Added tone+flash when shift is pressed in sync test for manual syncing.
+        Fixed a stack overflow bug.
+1.22:   Disabled hsync+vsync on uniformity test to enable diagnostic measurement.
+        Arranged composite luma bars in test plate to reflect logical ideal.
+1.23:   Added horizontal and vertical lines to 40-col test for checking jitter.
+1.24:   Fixed counter rollover bug in audio sync test.
+1.25:   Added color bars monitor calibration plate back into the program.
+        Added two more bar patterns to the color plate.
+1.25a:  Removed text from some color bar patterns.
+        Shrunk code size by 6K.
+1.26.0: Added color textmode moire patterns to bring out the worse in
+        scalers and capture devices.
+1.26.3a:Replaced VileR's test picture with something else (also cool).
+        Added a yellow border that draws when audio sounds in sync test.
+1.27.0: Added camera calibration plates.
+1.27.1: Refactored to save 1k of code and 13k of RAM.
+1.28:   Menu rearrangement to group things more logically.
+        Better monitor color test suggested by Adrian Black.
+        Added Multiburst test pattern.
+        New sort for capture RGB and Composite bars. (Not entirely sure
+        these capture patterns are useful; might remove them in the future.)
+1.3:    Compressed external data assets and embedded them in the main
+        program, so CGA_COMP.DAT is no longer required, making CGA_COMP.EXE
+        the only file necessary to perform testing.
+        Made information dialogs easier to read and less cluttered.
+1.31:   Fixed multiburst pattern only working once per program start.
+1.32:   Better monitor adjustment pattern for M24/6300/6060 monochrome CRTs
+
+Possible future enhancements:
+- Test on PCjr and ensure all tests work on PCjr
+- Add full support for "mode bw80" (related to the previous to-do item)
+- Add light pen support, if someone would make or give me a light pen!

@@ -1,0 +1,178 @@
+
+        SBPLAY version 2.59 March 21, 2000 by John A. Ball
+
+        SBPlay is a utility for playing back sound files. It works with
+        Sound Blaster compatiable cards and other types of sound cards with
+        the use of DIGPAK drivers. It will also use the regular PC speaker.
+        It does not require a sound board. To use the program type
+
+        SBPLAY filename or SBPLAY
+
+        where filename is the path to the file if required and filename can
+        include wild card characters. Filename extensions are not required.
+
+        SBPlay works with any Sound Blaster compatiable sound card or your
+        pc speaker. Other sound cards are supported using a DIGPAK driver.
+        To use SBPlay with a DIGPAK driver you must install the DIGPAK
+        driver before using sbplay. I.e. type
+        SNDSYS    to install the driver and then use
+        SBPLAY    to play your sound files on a Windows Sound System board.
+
+        After you are done the resident sound driver can be removed by
+        SNDSYS U
+
+        SBPlay can be made to use the PC speaker instead of your Sound
+        Blaster card by changing the environmental string for BLASTER.
+        I.e. set BLASTER=NOSB will disable your sound card and divert the
+        sound to the PC speaker.
+
+        Version 2.59 will play back Tandy Sound files (SND), Creative Labs
+        (VOC), Microsoft (WAV), Apple (AIF) and Amiga (IFF) & (RAW) files.
+        There is also some support for MAC files and .AU files.
+        SBPlay will also play the samples in (MOD) files at the last used
+        frequency. Try using the /X command line option to see the song
+        patterns. It will try to play back unknown files or raw data files
+        such as MAC SND files at 11,000 samples per second. The sound files
+        should be uncompressed, 8 bits, and unsigned. Note other types of
+        files can be played by using the command line options to change the
+        defaults. I.e. R:22000 to change the playback speed to 22,000 samples
+        per second.
+
+        SBPlay will also rip sound samples from MOD files and will create
+        the SAM sample files which were used to create the original mod file.
+        SAM files are used by MOD editors to create MOD files and usually
+        contain musical instrument sounds or other sound effects. WAV and
+        VOC sound files can also be created.
+
+        SBPlay can be used to play a randomly selected sound file from a
+        directory with the /RAN switch. This can be used to play a different
+        sound file each time the computer boots by placing the following
+        command in the autoexec.bat file:
+
+           SBPLAY c:\sound\*.* /s/ran
+
+        where c:\sound is a directory containing sound files. The /s prevents
+        any file information from being shown on the screen and the /ran
+        selects any one of the files that are available.
+
+        SBPlay is compatiable with DESQview, Windows 3.1/95, and OS/2.
+        It can be used to play back sound files by associating the sound file
+        extension with SBPlay in windows and DOSShell.
+
+        Note: When using SBPlay in DESQview your system may lock up! For
+        best results use a full text screen and don't enable the background.
+
+        If a mouse and mouse driver is present then SBPlay will use it to
+        select and play files. Try clicking the left mouse button on the
+        file to be played or the command.
+
+        The main program is written in C and the sound routines for the PC
+        speaker and Sound Blaster card are written in assembler. I used
+        QuickC 2.51 with Assembler to create this program. The source
+        code is available see register.me for details.
+
+        There are limitations to this program.
+
+        1) SBPLAY does not play back ALL sound files which have been
+           compressed.
+        2) There are audio gaps during the playback of large sound files
+           on slow PCs and when using a multitasker. SBPlay will use EMS
+           memory to load all or as much of the sound file as possible into
+           expanded memory for playback.
+        3) The volume control works only with Sound Blaster Pro and 16 cards.
+        4) If you have a CD Rom drive with no cd in it when you change drives
+           with the F3 command the infamous dos abort, ignore, retry error
+           occurs. Choose the ignore option or put in a cd.
+        5) SBPlay supports 8bit mono and stereo playback on Pro and 16 cards.
+           It does not use 16bit playback mode.
+
+        Problems:
+
+        I have found an error in some motherboards that causes SBPlay to
+        play back at twice normal speed when using the PC speaker. This is
+        an error in the chip design of the motherboard. To correct the
+        problem place a FIX=T2 statement as the last line of your sbplay.ini
+        file or use the command switch /T2. Also previous versions of SBPlay
+        would crash some AST computers when no sound board is present. I
+        think I have fixed this problem.
+
+        SBPlay uses the DOS environment to help find the hardware
+        configuration. It looks for the BLASTER variable to determine what
+        the hardware address is, the IRQ, the DMA channel, and the board type.
+
+        i.e.
+
+        SET BLASTER=A220 I5 D1 T3
+
+        will tell SBPlay that the Address is 220h, the IRQ is 5, the DMA
+        channel is 1, and the card type is 3 (SB ver 2.0). If your board
+        is configured for another DMA channel such as 0, the D parameter
+        must be D0 . If you have a Sound Blaster compatiable card and SBPlay
+        locks up try using T-1 to tell SBPlay that your card is not a Sound
+        Blaster card. If the hardware address or IRQ is not correct in the
+        BLASTER variable SBPlay should give you an error message and you can
+        use the /x parameter on the command line to find the correct hardware
+        information.
+
+        Starting with version 2.56 you can save your defaults with the
+        save defaults command in the defaults menu F1. The defaults are
+        saved in SBPLAY.INI in whatever directory you are in unless you
+        have the SBPLAY environmental statement in your autoexec.bat.
+        For example
+
+        SET SBPLAY=C:\BLASTER
+
+        in your autoexec.bat file will cause SBPlay to save it's SBPLAY.INI
+        file in the C:\BLASTER directory.
+
+        The playback speed for the PC speaker can be set with the D command
+        by calling up the defaults with F1. The speed can be saved by
+        writing to the SBPLAY.INI file. 
+
+        SBPlay can be made to use the PC speaker even when a Sound Blaster
+        card is available by using the T1 switch in the command line or by
+        placing a FIX=T1 statement in the sbplay.ini file.
+
+        Also new is the registeration command @ . This command is used for
+        saving your name as the registered user and the registration number
+        obtained from the author John A. Ball. There is a password required
+        in order to use this command which can be otained via e-mail by
+        registering! Please read the file register.me .
+
+        When using a CD-ROM if you go to change drives and there is no cd
+        in the drive you will get the abort, retry,, ignor error. Place a
+        cd in the drive and go r (retry) or use i (ignore). If you wish
+        to convert a sound file such as an aif to wav that is on a cd, type
+        the drive and directory you want the converted file saved to when
+        asked the name of the file.
+
+        When using the file shell there are commands to delete, rename, and
+        copy files. The delete command is d. The rename command is r. And
+        the copy command is c. 
+
+        Also sbplay may be used to play a sound file continuously upto
+        32,000 times using the command line mode L:xxxxx , where xxxxx is
+        the number of times to play the sound file. Good for a noise or
+        special effects file.
+
+        The use of this program is free but you must register your use of
+        this program. By registering I receive the feedback required to
+        keep me supporting this program and improving it. 
+        
+        You may modify and use the source code for your own programs. You 
+        may not distribute modified code. Do not distribute any of my source 
+        code without my permission. Please send all corrections and 
+        suggested improvements to John A. Ball.
+
+        Comments and suggestions may be sent to
+
+        jaball@netbistro.com         or         aa316@pgfn.bc.ca
+
+                John A. Ball
+                2398 Victoria Street
+                Prince George, B.C.
+                V2L 2M2
+                Canada
+
+        Thank-you for trying my program.
+
